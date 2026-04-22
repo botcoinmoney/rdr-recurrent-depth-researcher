@@ -109,12 +109,13 @@ Require alignment across:
 3. `RULES.md`
 4. `docs/H100_SETUP.md`
 5. `docs/PRIOR_EXPERIMENT_FINDINGS.md`
-6. `docs/DEPENDENCIES_AND_SOURCES.md`
-7. `docs/RESEARCH_SYNTHESIS.md`
-8. `docs/MEASUREMENT_AND_GATES.md`
-9. `docs/EXECUTION_PLAYBOOK.md`
-10. `docs/COMMON_FAILURE_MODES.md`
-11. `docs/HANDOFF.md`
+6. `docs/CANONICAL_TESTING_METHODS.md`
+7. `docs/DEPENDENCIES_AND_SOURCES.md`
+8. `docs/RESEARCH_SYNTHESIS.md`
+9. `docs/MEASUREMENT_AND_GATES.md`
+10. `docs/EXECUTION_PLAYBOOK.md`
+11. `docs/COMMON_FAILURE_MODES.md`
+12. `docs/HANDOFF.md`
 
 ## Run Discipline
 

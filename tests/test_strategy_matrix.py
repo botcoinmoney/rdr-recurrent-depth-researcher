@@ -23,6 +23,7 @@ def test_self_contained_docs_exist():
     required = [
         root / "START_HERE.md",
         root / "docs" / "PRIOR_EXPERIMENT_FINDINGS.md",
+        root / "docs" / "CANONICAL_TESTING_METHODS.md",
         root / "docs" / "DEPENDENCIES_AND_SOURCES.md",
         root / "docs" / "COMMON_FAILURE_MODES.md",
     ]
