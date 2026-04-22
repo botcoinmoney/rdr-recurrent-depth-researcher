@@ -16,6 +16,13 @@ this is that file.
 
 If this file conflicts with other planning prose, use this file for the **testing methods**.
 
+More specifically:
+
+- use this file for exact method design
+- use `docs/MEASUREMENT_AND_GATES.md` for validity and interpretation rules
+- use `docs/EXECUTION_PLAYBOOK.md` for run sequencing and orchestration discipline
+- use `configs/strategies/strategy_matrix.yaml` as a compact machine-readable summary, not the full method spec
+
 ## Scope
 
 This file governs the first-wave `8xH100` signal hunt only when that hardware is available.
@@ -36,7 +43,7 @@ The methods in this file are constructed from:
 Practical rule:
 
 - **Pass 2 takes precedence for execution order, thresholds, and budgeting**
-- **Pass 1 contributes architectural interpretation and demotion logic**
+- **Pass 1 contributes architectural specificity where the exact design choice determines whether the operational test is scientifically valid**
 
 ## The Actual Question
 
@@ -63,6 +70,19 @@ The five first-wave strategies are:
 3. dynamic recurrence plus hop curriculum
 4. trajectory-classifier amplification
 5. boundary-token format A/B
+
+## Specification Tightening
+
+The following points are pinned down here so they are **not** left to orchestrator discretion:
+
+1. Strategy 1 uses **two distinct probes**, not one ambiguous probe family
+2. Strategy 1 is judged by the **full AUC-by-depth curve**, not only monotone increase
+3. Strategy 2 uses a **mid-sized auxiliary decoder**, not full coda and not tiny LoRA-only scaffolding
+4. Strategy 2 uses **clean linear traces only** in wave 1 for step alignment
+5. Strategy 3 requires **dynamic R during training**, not only an inference-time sweep
+6. Strategy 5 Arm B uses **stable special-token initialization**
+
+These are not optional refinements. They are part of the canonical method because they determine whether the result is interpretable.
 
 ## What Was Demoted
 
@@ -271,9 +291,9 @@ Best combined logic from the two passes:
 
 Grounding:
 
-- Lu-style results suggest weak latent step structure.
-- Du/LTO-style results suggest latent correctness signal exists.
-- This tension has not been cleanly tested on natural-language multi-hop.
+- Lu-style results suggest weak or discontinuous **per-iteration token-level** latent step structure.
+- Du/LTO-style results suggest strong **trajectory-level** latent correctness signal exists.
+- These are different probe families and must both be run to resolve the literature tension on natural-language multi-hop.
 
 ### Exact Method
 
@@ -286,22 +306,48 @@ Run:
 - extract hidden states at recurrence depths `R in {4, 8, 16}`
 - use `300` HotpotQA-style 2-hop examples with bridge signal where possible
 - use `300` MuSiQue examples if available
-- train a simple linear probe on the chosen hidden-state representation
-- report AUC by depth
+- run **both** of the following probes:
 
-### Primary Metric
+#### Probe A: Lu-style per-iteration coda/logit-lens probe
 
-- probe AUC by depth
+- operate on a bridge-entity-relevant token position or equivalent question-end/bridge position
+- decode per-iteration information from the recurrent state in a token-local way
+- report per-depth token-level AUC or equivalent discriminative score
+
+Question answered:
+
+- `Is bridge-relevant information locally readable at individual recurrent steps?`
+
+#### Probe B: Du-style pooled trajectory classifier
+
+- pool the recurrent trajectory across depths and/or across the selected representation family
+- train a simple linear or shallow classifier on the pooled trajectory representation
+- report trajectory-level AUC by depth family or pooled setting
+
+Question answered:
+
+- `Does the full latent trajectory encode correctness-relevant multi-hop structure even if individual steps are noisy?`
+
+These are intentionally different experiments. The disagreement between them is scientifically meaningful.
+
+### Primary Metrics
+
+- Lu-style per-iteration probe AUC by depth
+- Du-style pooled trajectory probe AUC
 
 ### Win Condition
 
-- materially positive AUC increase with depth, such as delta `>= 0.10`
+- if **any** probe reaches roughly `AUC >= 0.65` at any depth, treat that as evidence that usable structure exists
+- always report the **full AUC-by-depth curve**
+- treat curve shape separately from peak value
 
 ### Interpretation
 
-- rising AUC: latent multi-hop structure exists and can potentially be amplified
-- flat AUC: recurrence is mostly iterative refinement without useful NL multi-hop separation
-- declining AUC: overthinking dominates
+- high Lu-style and high Du-style signal: both local step structure and trajectory structure exist
+- weak Lu-style but strong Du-style signal: trajectory structure exists, but per-step token-local structure is unstable or poorly localized
+- non-monotonic curve with a clear early or mid-depth peak: structure exists but overthinking degrades it later
+- flat low curve across both probes: little useful NL multi-hop structure is currently readable
+- declining curve after an early peak: overthinking dominates at larger depths
 
 ### Budget
 
@@ -338,12 +384,38 @@ Training setup:
 Data:
 
 - DACR examples with at least `3` sequential extraction steps
+- wave-1 filter to **clean linear chains only**
+- include:
+  - `direct_extraction`
+  - simple `cross_section_synthesis`
+- exclude for wave 1:
+  - `trap_targeted`
+  - `conditional_filtered`
+  - obviously branching or unordered retrieval traces
+
+Reason:
+
+- wave-1 step supervision should be as close as possible to one-latent-step-to-one-reasoning-step alignment
+- harder branching cases can return in wave 2 if the mechanism works on clean linear chains
 
 Mechanism:
 
 - attach an auxiliary decoder during training only
 - supervise intermediate recurrent states against aligned DACR reasoning steps
 - remove auxiliary head for inference
+
+Auxiliary decoder size:
+
+- use a **mid-sized auxiliary decoder**
+- do **not** use the full coda as the auxiliary decoder
+- do **not** reduce the auxiliary decoder to a tiny LoRA-only head
+- canonical choice for wave 1: approximately **one transformer block at the base model width**
+
+Reason:
+
+- SIM-CoT-style evidence suggests very large auxiliary decoders can make the latent task too easy, reducing pressure on the recurrent core
+- a tiny head risks under-capacity and noisy supervision
+- a mid-sized decoder is the most defensible compromise for a `3.5B`-class base
 
 ### Primary Metrics
 
@@ -393,13 +465,22 @@ Question:
 Training setup:
 
 - conservative core-focused adaptation
-- dynamic recurrence schedule
+- dynamic recurrence schedule during training
 - curriculum bucketed by hop count
 - measure across multiple inference depths after training
 
 Data:
 
 - DACR bucketed by hop complexity
+
+Training-time recurrence rule:
+
+- recurrence depth `R` must be sampled **during training**
+- canonical form:
+  - `R ~ clip(Poisson(lambda), R_min, R_max)` per training example
+- vary `(lambda, R_min, R_max)` by curriculum stage
+
+This is required. An inference-only `R` sweep on a fixed-`R`-trained model is **not** a valid execution of this strategy.
 
 Eval:
 
@@ -511,6 +592,14 @@ Keep matched:
 - optimizer
 - recurrence schedule
 - adaptation footprint
+
+Special-token initialization:
+
+- initialize new special-token embeddings as the **mean of existing vocabulary embeddings**
+
+Reason:
+
+- wave-1 token budgets are small enough that random initialization would confound the A/B by wasting too much budget on learning stable embeddings instead of testing the structure hypothesis
 
 ### Primary Metrics
 

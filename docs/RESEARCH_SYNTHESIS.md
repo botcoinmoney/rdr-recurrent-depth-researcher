@@ -19,6 +19,11 @@ The final strategy framing in this repository gives **more operational weight to
 2. BOTCOIN/DACR data is valuable because it gives **structured multi-hop chains**, not because it is magical by itself
 3. first-wave runs should search for **signal**, not pretend to settle the whole latent-reasoning question
 
+The cleanest summary is:
+
+- **Pass 2 provides the structure**
+- **Pass 1 provides the research-backed specificity when an exact design choice determines whether the test is valid**
+
 ## What Was Kept From Each Pass
 
 ### From Pass 1

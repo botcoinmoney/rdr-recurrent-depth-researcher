@@ -28,6 +28,8 @@ This is a signal hunt with strict gates.
 
 Do not start setup until you have read at least through `docs/MEASUREMENT_AND_GATES.md`.
 
+For the actual first-wave method design, `docs/CANONICAL_TESTING_METHODS.md` is the primary source of truth.
+
 ## Immediate Operating Rules
 
 - Do not merge adapters into the base model.

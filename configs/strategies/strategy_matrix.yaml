@@ -30,7 +30,7 @@ strategies:
       - "Pass 2 correctly treated the probe baseline as the measuring instrument for the entire matrix."
       - "Pass 1 correctly emphasized that latent instability and rank inconsistency must be observed directly, not inferred from benchmark scores."
       - "Local repaired experiment history showed measurement bugs can invalidate conclusions, so the probe must come first."
-      - "Lu-style weak step-structure and Du-style strong trajectory-signal claims remain unresolved on natural-language multi-hop."
+      - "Lu-style weak per-step signal and Du-style strong pooled-trajectory signal claims remain unresolved on natural-language multi-hop and therefore both probe families must be run."
     grounded_evidence:
       papers:
         - "Lu et al. 2025 arithmetic probe critique of Huginn-like latent step structure"
@@ -44,13 +44,15 @@ strategies:
       - MuSiQue_if_available
     metrics:
       primary:
-        - probe_auc_by_depth
+        - lu_style_per_iteration_probe_auc_by_depth
+        - du_style_pooled_trajectory_auc
       secondary:
         - probe_f1_by_depth
-    win_condition: "AUC increases materially with depth, such as delta >= 0.10 from shallow to deeper recurrence."
+    win_condition: "Any meaningful probe reaching roughly AUC >= 0.65 at any depth indicates usable structure exists; report the full AUC-by-depth curve and interpret curve shape separately."
     fail_interpretation:
-      - "flat curve implies recurrence is mostly iterative refinement without useful NL multi-hop separation"
-      - "declining curve implies overthinking"
+      - "weak Lu-style but strong Du-style signal implies trajectory structure exists but per-step token-local structure is unstable"
+      - "non-monotonic curves can indicate real structure with overthinking at larger depths"
+      - "flat low curves across both probe families imply little readable NL multi-hop structure"
 
   - id: s2_hop_aligned_aux
     name: Hop-aligned auxiliary supervision
@@ -70,7 +72,7 @@ strategies:
         - "small, conservative core-focused runs were the only repaired positives"
     budget_gpu_hours: 22
     data_requirements:
-      - DACR_examples_with_3plus_extractions
+      - DACR_examples_with_3plus_extractions_and_linear_step_alignment
       - external_eval_hotpotqa
       - external_eval_drop
     metrics:
@@ -80,7 +82,7 @@ strategies:
       secondary:
         - hotpotqa_em
         - drop_em
-    win_condition: "Probe improves materially over baseline and step decoder is non-trivially aligned; behavior ideally improves without collapse."
+    win_condition: "Probe improves materially over baseline, step decoder alignment is non-trivial, and behavior ideally improves without collapse."
     fail_interpretation:
       - "no probe change implies SIM-CoT-like transfer did not materialize at this scale"
       - "aux decoder overfits without external behavior lift implies format learning rather than latent reasoning"
@@ -93,7 +95,7 @@ strategies:
     why_this_exists:
       - "Pass 2 correctly elevated Kohli-style dynamic-R and curriculum as the most principled recurrence-aware recipe."
       - "Pass 1 correctly emphasized depth extrapolation failure and overthinking as central recurrent-depth problems."
-      - "Local evidence already showed fixed-depth snapshots are insufficient for interpretation."
+      - "Local evidence already showed fixed-depth snapshots are insufficient for interpretation, so training-time dynamic R must be part of the method rather than only inference-time sweeps."
     grounded_evidence:
       papers:
         - "Kohli et al. 2026"
@@ -110,7 +112,7 @@ strategies:
         - score_by_inference_depth
       secondary:
         - probe_auc_by_depth
-    win_condition: "Monotone or clearly positive behavioral scaling from low to moderate recurrence depth."
+    win_condition: "Monotone or clearly positive behavioral scaling from low to moderate recurrence depth after training with dynamic R sampled per example."
     fail_interpretation:
       - "flat curve implies recurrence-aware training did not transfer"
       - "decline at higher depth implies overthinking still dominates"
@@ -170,7 +172,7 @@ strategies:
         - drop_em_delta
       secondary:
         - probe_auc_delta
-    win_condition: "Treatment materially beats control on at least one external benchmark or shows a clear latent-structure win without behavior loss."
+    win_condition: "Treatment materially beats control on at least one external benchmark or shows a clear latent-structure win without behavior loss, using stable mean-embedding initialization for new special tokens."
     fail_interpretation:
       - "near-zero delta means current format is sufficient at this scale"
       - "negative delta means boundary tokens likely increase harmful format overfitting"
