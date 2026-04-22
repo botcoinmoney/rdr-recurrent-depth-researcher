@@ -1,8 +1,10 @@
 # Research Synthesis
 
-This document explains **why the first-wave probe strategies exist**, how the two BOTCOIN research passes were weighed against each other, and how those ideas were corrected using repaired experiment evidence plus the strongest late-2025/2026 literature.
+This document explains **why the first-wave probe strategies exist**, how the two BOTCOIN research passes were weighed against each other, and how those ideas were corrected using the distilled prior experiment findings in this repository plus the strongest late-2025/2026 literature.
 
 The orchestrator should read this before interpreting the strategy matrix. The goal is to prevent cargo-cult execution.
+
+For the included prior-experiment evidence, see `docs/PRIOR_EXPERIMENT_FINDINGS.md`.
 
 ## Executive Synthesis
 

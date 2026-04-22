@@ -107,10 +107,12 @@ Require alignment across:
 1. `README.md`
 2. `RULES.md`
 3. `docs/H100_SETUP.md`
-4. `docs/RESEARCH_SYNTHESIS.md`
-5. `docs/MEASUREMENT_AND_GATES.md`
-6. `docs/EXECUTION_PLAYBOOK.md`
-7. `docs/HANDOFF.md`
+4. `docs/PRIOR_EXPERIMENT_FINDINGS.md`
+5. `docs/DEPENDENCIES_AND_SOURCES.md`
+6. `docs/RESEARCH_SYNTHESIS.md`
+7. `docs/MEASUREMENT_AND_GATES.md`
+8. `docs/EXECUTION_PLAYBOOK.md`
+9. `docs/HANDOFF.md`
 
 ## Run Discipline
 

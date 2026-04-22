@@ -2,6 +2,8 @@
 
 This document is for the orchestrator receiving this repository on a fresh machine.
 
+Nothing in the intended operating flow should depend on access to the original BOTCOIN workspace. The pertinent prior findings and framing corrections are bundled into this repository.
+
 ## What This Repo Is
 
 This repo is a **standalone orchestration package**.
@@ -26,7 +28,7 @@ The first wave is trying to answer:
 
 Carry these forward into every decision:
 
-1. previous local experiment history showed that invalid measurement paths can create false confidence
+1. prior experiment history, as distilled in `docs/PRIOR_EXPERIMENT_FINDINGS.md`, showed that invalid measurement paths can create false confidence
 2. low loss can indicate memorization rather than learning
 3. output gates matter as much as train loss
 4. DACR-Bench can be misleading early if the prompt/output contract is not aligned
@@ -47,8 +49,9 @@ Read `docs/RESEARCH_SYNTHESIS.md` for why these survived the weighing process.
 1. follow `docs/H100_SETUP.md`
 2. validate this repo
 3. create the live private run repo
-4. commit the starting state in that live repo
-5. start the baseline gates
+4. confirm the live run repo contains the bundled `handoff/` directory with docs/configs/scripts
+5. commit the starting state in that live repo
+6. start the baseline gates
 
 ## What To Never Do
 

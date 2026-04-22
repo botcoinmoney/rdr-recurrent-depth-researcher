@@ -25,7 +25,7 @@ The orchestrator should complete this setup before cloning or launching the live
 Recommended host layout:
 
 ```text
-/root/
+${HOME}/
 ├── botcoin-latent-reasoning-orchestrator/
 ├── runs/
 │   └── <live-private-run-repo>/
@@ -39,8 +39,8 @@ Do not place Hugging Face caches on unstable network mounts if a local disk path
 
 Recommended:
 
-- `HF_HOME=/root/.cache/huggingface`
-- `TRANSFORMERS_CACHE=/root/.cache/huggingface`
+- `HF_HOME=$HOME/.cache/huggingface`
+- `TRANSFORMERS_CACHE=$HOME/.cache/huggingface`
 
 ## Machine Bootstrap
 
@@ -79,9 +79,9 @@ huggingface-cli login
 ## Python Environment
 
 ```bash
-mkdir -p /root/venvs
-python3 -m venv /root/venvs/botcoin-lt
-. /root/venvs/botcoin-lt/bin/activate
+mkdir -p "$HOME/venvs"
+python3 -m venv "$HOME/venvs/botcoin-lt"
+. "$HOME/venvs/botcoin-lt/bin/activate"
 python -m pip install --upgrade pip
 ```
 
@@ -110,9 +110,9 @@ Minimum expected result:
 Export these in the shell profile used by the orchestrator:
 
 ```bash
-export HF_HOME=/root/.cache/huggingface
-export TRANSFORMERS_CACHE=/root/.cache/huggingface
-export HUGGINGFACE_HUB_CACHE=/root/.cache/huggingface
+export HF_HOME="$HOME/.cache/huggingface"
+export TRANSFORMERS_CACHE="$HOME/.cache/huggingface"
+export HUGGINGFACE_HUB_CACHE="$HOME/.cache/huggingface"
 ```
 
 This is mandatory if the machine has shown unstable or remote-cache behavior before.
@@ -120,10 +120,10 @@ This is mandatory if the machine has shown unstable or remote-cache behavior bef
 ## Clone The Handoff Repo
 
 ```bash
-cd /root
+cd "$HOME"
 git clone git@github.com:botcoinmoney/botcoin-latent-reasoning-orchestrator.git
 cd botcoin-latent-reasoning-orchestrator
-. /root/venvs/botcoin-lt/bin/activate
+. "$HOME/venvs/botcoin-lt/bin/activate"
 pip install -e ".[dev]"
 python3 scripts/validate_strategy_matrix.py
 python3 scripts/preflight_check.py --root .
@@ -136,11 +136,11 @@ Do not run the actual experiment directly in this handoff repo.
 Create a fresh private run repo:
 
 ```bash
-cd /root/botcoin-latent-reasoning-orchestrator
+cd "$HOME/botcoin-latent-reasoning-orchestrator"
 bash scripts/create_run_repo.sh botcoin-lt-run-$(date -u +%Y%m%d-%H%M)
 ```
 
-This creates a separate repo under `/root/runs/`.
+This creates a separate repo under `$HOME/runs/` and bundles a `handoff/` snapshot into that live run repo so the run remains self-contained even if this handoff repo is not kept around.
 
 ## Protected Defaults
 
@@ -157,7 +157,7 @@ The orchestrator should keep these defaults unless a documented reason requires 
 Run:
 
 ```bash
-python3 scripts/preflight_check.py --root /root/runs/<live-run-repo>
+python3 scripts/preflight_check.py --root "$HOME/runs/<live-run-repo>"
 ```
 
 Proceed only if:

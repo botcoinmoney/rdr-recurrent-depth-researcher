@@ -2,6 +2,8 @@
 
 This repository is a standalone handoff package for running a BOTCOIN recurrent-depth transformer signal hunt on a fresh `4xH100` instance.
 
+It is intended to be **self-contained for a fresh machine**. The orchestrator should not need access to the original BOTCOIN workspace or this current system to understand the plan, the prior findings, or the guardrails.
+
 Its purpose is not to be the training stack itself. Its purpose is to make the orchestrator safe, disciplined, and reproducible:
 
 - set up the machine correctly
@@ -60,11 +62,13 @@ Then read, in order:
 
 1. `ORCHESTRATOR_RULES.md`
 2. `docs/H100_SETUP.md`
-3. `docs/RESEARCH_SYNTHESIS.md`
-4. `docs/E2E_PIPELINE.md`
-5. `docs/EXECUTION_PLAYBOOK.md`
-6. `docs/MEASUREMENT_AND_GATES.md`
-7. `docs/HANDOFF.md`
+3. `docs/PRIOR_EXPERIMENT_FINDINGS.md`
+4. `docs/DEPENDENCIES_AND_SOURCES.md`
+5. `docs/RESEARCH_SYNTHESIS.md`
+6. `docs/E2E_PIPELINE.md`
+7. `docs/EXECUTION_PLAYBOOK.md`
+8. `docs/MEASUREMENT_AND_GATES.md`
+9. `docs/HANDOFF.md`
 
 ## Required Orchestrator Behavior
 
@@ -72,8 +76,9 @@ Before any real run:
 
 1. Create a new private GitHub repo for the live experiment.
 2. Copy in the templates from `templates/`.
-3. Commit immediately.
-4. Use that run repo, not this handoff repo, for live logs, code changes, and experiment artifacts.
+3. Copy the bundled `handoff/` snapshot into that run repo so it remains self-contained after handoff.
+4. Commit immediately.
+5. Use that run repo, not this handoff repo, for live logs, code changes, and experiment artifacts.
 
 Use:
 

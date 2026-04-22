@@ -12,6 +12,8 @@ REQUIRED_DOCS = [
     "README.md",
     "RULES.md",
     "ORCHESTRATOR_RULES.md",
+    "docs/PRIOR_EXPERIMENT_FINDINGS.md",
+    "docs/DEPENDENCIES_AND_SOURCES.md",
 ]
 
 
@@ -38,7 +40,7 @@ def main() -> int:
         check_path(root, rel, failures)
 
     findings = root / "findings.md"
-    if root.name.startswith("botcoin-lt-run-") or (root / ".git").exists():
+    if root.name.startswith("botcoin-lt-run-") or (root / "handoff").exists():
         if not findings.exists():
             failures.append("Live run repo should contain findings.md")
 
