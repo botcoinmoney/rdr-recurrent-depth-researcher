@@ -1,0 +1,24 @@
+environment:
+  profile: h100_4gpu
+  gpus: 4
+  gpu_type: H100_80GB_or_better
+  python_min: "3.11"
+  required_env:
+    - HF_HOME
+    - TRANSFORMERS_CACHE
+  recommended_env:
+    HF_HOME: /root/.cache/huggingface
+    TRANSFORMERS_CACHE: /root/.cache/huggingface
+    HUGGINGFACE_HUB_CACHE: /root/.cache/huggingface
+  protected_defaults:
+    keep_gpu0_for_eval_or_output_gate: true
+    forbid_adapter_merge: true
+    require_frequent_pushes: true
+    require_findings_log: true
+  wake_cadence_minutes:
+    setup: 2
+    dataset_build: 5
+    benchmark: 10
+    training: 5
+    output_gate: 2
+

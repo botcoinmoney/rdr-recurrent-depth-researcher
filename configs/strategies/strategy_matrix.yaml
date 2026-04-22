@@ -1,0 +1,177 @@
+version: 1
+global_framing:
+  run_type: signal_hunt
+  primary_question: "Which first-wave strategy shows the strongest credible signal that BOTCOIN-style multi-hop traces can shape recurrent hidden-state geometry for natural-language reasoning under a 4xH100 budget?"
+  baseline_anchor:
+    hotpotqa_t8:
+      em: 8.0
+      f1: 13.9
+    drop_t8:
+      em: 17.2
+      f1: 21.0
+    parseable_rate: 100.0
+  evidence_sources:
+    research_pass_1_weight: medium
+    research_pass_2_weight: high
+    repaired_local_experiment_weight: high
+    primary_literature_2025_2026_weight: high
+  demoted_ideas:
+    - full_from_scratch_looped_rebuild
+    - large_full_parameter_cpt_as_first_wave
+    - pure_latent_rl_as_first_move
+
+strategies:
+  - id: s1_probe_baseline
+    name: Natural-language latent probe baseline
+    order: 1
+    priority: highest
+    hypothesis: "Base recurrent depth may already contain measurable natural-language multi-hop signal; if so, later strategies should amplify rather than install structure."
+    why_this_exists:
+      - "Pass 2 correctly treated the probe baseline as the measuring instrument for the entire matrix."
+      - "Pass 1 correctly emphasized that latent instability and rank inconsistency must be observed directly, not inferred from benchmark scores."
+      - "Local repaired experiment history showed measurement bugs can invalidate conclusions, so the probe must come first."
+      - "Lu-style weak step-structure and Du-style strong trajectory-signal claims remain unresolved on natural-language multi-hop."
+    grounded_evidence:
+      papers:
+        - "Lu et al. 2025 arithmetic probe critique of Huginn-like latent step structure"
+        - "Du et al. 2025/2026 LTO trajectory classifier results"
+      local_findings:
+        - "repaired probe path and balanced probe corpus are mandatory"
+        - "training before valid measurement led to unusable conclusions"
+    budget_gpu_hours: 6
+    data_requirements:
+      - HotpotQA_bridge_or_equivalent
+      - MuSiQue_if_available
+    metrics:
+      primary:
+        - probe_auc_by_depth
+      secondary:
+        - probe_f1_by_depth
+    win_condition: "AUC increases materially with depth, such as delta >= 0.10 from shallow to deeper recurrence."
+    fail_interpretation:
+      - "flat curve implies recurrence is mostly iterative refinement without useful NL multi-hop separation"
+      - "declining curve implies overthinking"
+
+  - id: s2_hop_aligned_aux
+    name: Hop-aligned auxiliary supervision
+    order: 2
+    priority: highest
+    hypothesis: "Step-aligned latent supervision can install stable hop-aware recurrent structure using DACR trace steps as direct supervision targets."
+    why_this_exists:
+      - "Pass 1 identified latent step alignment as the best way to turn explicit DACR traces into implicit computation targets."
+      - "Pass 2 operationalized this with a budgeted SIM-CoT-style auxiliary decoder plan."
+      - "Local failures showed the exact collapse mode SIM-CoT is designed to address."
+    grounded_evidence:
+      papers:
+        - "SIM-CoT 2025 / ICLR 2026"
+        - "Ren 2025 per-depth Huginn supervision precedent"
+      local_findings:
+        - "high-rank or overtrained runs collapsed"
+        - "small, conservative core-focused runs were the only repaired positives"
+    budget_gpu_hours: 22
+    data_requirements:
+      - DACR_examples_with_3plus_extractions
+      - external_eval_hotpotqa
+      - external_eval_drop
+    metrics:
+      primary:
+        - bridge_probe_auc_delta
+        - auxiliary_step_prediction_accuracy
+      secondary:
+        - hotpotqa_em
+        - drop_em
+    win_condition: "Probe improves materially over baseline and step decoder is non-trivially aligned; behavior ideally improves without collapse."
+    fail_interpretation:
+      - "no probe change implies SIM-CoT-like transfer did not materialize at this scale"
+      - "aux decoder overfits without external behavior lift implies format learning rather than latent reasoning"
+
+  - id: s3_dynamic_r_curriculum
+    name: Dynamic recurrence plus hop curriculum
+    order: 3
+    priority: high
+    hypothesis: "Recurrence-aware training with hop curriculum transfers from synthetic implicit reasoning to natural-language multi-hop and improves score as inference depth increases."
+    why_this_exists:
+      - "Pass 2 correctly elevated Kohli-style dynamic-R and curriculum as the most principled recurrence-aware recipe."
+      - "Pass 1 correctly emphasized depth extrapolation failure and overthinking as central recurrent-depth problems."
+      - "Local evidence already showed fixed-depth snapshots are insufficient for interpretation."
+    grounded_evidence:
+      papers:
+        - "Kohli et al. 2026"
+        - "Geiping et al. 2025 stochastic recurrence"
+        - "McLeish et al. 2025 curriculum-over-recurrence support"
+      local_findings:
+        - "depth effects must be measured directly"
+    budget_gpu_hours: 18
+    data_requirements:
+      - DACR_bucketed_by_hop_count
+      - external_eval_hotpotqa
+    metrics:
+      primary:
+        - score_by_inference_depth
+      secondary:
+        - probe_auc_by_depth
+    win_condition: "Monotone or clearly positive behavioral scaling from low to moderate recurrence depth."
+    fail_interpretation:
+      - "flat curve implies recurrence-aware training did not transfer"
+      - "decline at higher depth implies overthinking still dominates"
+
+  - id: s4_trajectory_amplification
+    name: Trajectory-classifier amplification
+    order: 4
+    priority: high
+    hypothesis: "The base model already contains usable latent correctness signal; DACR training and latent reranking can sharpen that signal without installing step structure."
+    why_this_exists:
+      - "Pass 2 correctly preserved this as the main alternative hypothesis to step-installed structure."
+      - "Pass 1's focus on latent geometry and separability maps naturally onto trajectory-level discrimination."
+      - "BOTCOIN raw attempts provide same-context positive/negative trajectories unusually well."
+    grounded_evidence:
+      papers:
+        - "Du et al. 2025/2026 LTO"
+      local_findings:
+        - "dataset audit identified abundant positive/negative raw attempts and same-session contrasts"
+    budget_gpu_hours: 20
+    data_requirements:
+      - DACR_positive_negative_pairs
+      - external_eval_hotpotqa
+    metrics:
+      primary:
+        - classifier_auc_pre_and_post
+        - reranked_hotpotqa_em
+      secondary:
+        - greedy_hotpotqa_em
+    win_condition: "Classifier remains discriminative and reranking or guided selection yields a meaningful lift."
+    fail_interpretation:
+      - "post-train AUC collapse implies the classifier signal was gamed"
+      - "AUC survives but reranking does not help implies the signal was not amplified usefully"
+
+  - id: s5_boundary_tokens_ab
+    name: Boundary-token format A/B
+    order: 5
+    priority: medium
+    hypothesis: "Explicit hop boundaries may provide useful alignment handles, but they may also worsen format overfitting; this must be decided empirically."
+    why_this_exists:
+      - "Pass 1 correctly suggested boundary structure as a latent-alignment handle."
+      - "Pass 2 correctly reframed it as a cheap A/B decision rather than a baked-in assumption."
+      - "Local collapse on structural-token patterns makes this a high-leverage but high-caution data-format question."
+    grounded_evidence:
+      papers:
+        - "SIM-CoT step-level alignment logic"
+        - "format sensitivity and pause-token literature cited in Pass 2"
+      local_findings:
+        - "delimiter-heavy collapse modes already happened"
+    budget_gpu_hours: 16
+    data_requirements:
+      - matched_control_and_treatment_corpora
+      - external_eval_hotpotqa
+      - external_eval_drop
+    metrics:
+      primary:
+        - hotpotqa_em_delta
+        - drop_em_delta
+      secondary:
+        - probe_auc_delta
+    win_condition: "Treatment materially beats control on at least one external benchmark or shows a clear latent-structure win without behavior loss."
+    fail_interpretation:
+      - "near-zero delta means current format is sufficient at this scale"
+      - "negative delta means boundary tokens likely increase harmful format overfitting"
+
