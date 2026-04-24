@@ -1,9 +1,9 @@
 version: 1
 mission:
-  primary_question: "Which first-wave strategy transfers BOTCOIN-style challenge traces into real natural-language multi-hop and causal reasoning under an 8xH100 budget?"
+  primary_question: "Which first-wave strategy yields the strongest credible recurrent-depth transfer signal on the current scenario under the available compute budget?"
   transfer_ladder:
-    - stage: botcoin_structural_fidelity
-      focus: "Does the model preserve and expose the intended BOTCOIN/DACR step structure?"
+    - stage: scenario_structural_fidelity
+      focus: "Does the model preserve and expose the intended latent or recurrent structure of the current supervision format?"
       required_evidence:
         - "balanced probe AUC by depth"
         - "parseable output rate"

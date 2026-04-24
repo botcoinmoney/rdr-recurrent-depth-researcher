@@ -10,6 +10,10 @@ environment:
     HF_HOME: /root/.cache/huggingface
     TRANSFORMERS_CACHE: /root/.cache/huggingface
     HUGGINGFACE_HUB_CACHE: /root/.cache/huggingface
+  install:
+    torch_profile: cu126
+    venv_path: $HOME/venvs/rdh
+    include_dev: true
   protected_defaults:
     keep_gpu0_for_eval_or_output_gate: true
     forbid_adapter_merge: true
@@ -21,4 +25,3 @@ environment:
     benchmark: 10
     training: 5
     output_gate: 2
-

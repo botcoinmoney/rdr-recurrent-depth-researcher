@@ -25,6 +25,7 @@ REQUIRED_DOCS = [
 REQUIRED_HELPERS = [
     "scripts/checkpoint_commit_push.sh",
     "scripts/gpu_status.py",
+    "scripts/setup_env.py",
 ]
 
 
@@ -40,6 +41,11 @@ def main() -> int:
         "--check-gpu",
         action="store_true",
         help="Validate that at least one GPU is visible via nvidia-smi",
+    )
+    parser.add_argument(
+        "--check-torch",
+        action="store_true",
+        help="Validate that torch imports cleanly in the current Python environment",
     )
     args = parser.parse_args()
 
@@ -61,7 +67,7 @@ def main() -> int:
 
     findings = root / "findings.md"
     run_manifest = root / "run_manifest.yaml"
-    if root.name.startswith("botcoin-lt-run-") or (root / "handoff").exists():
+    if root.name.startswith("rdh-run-") or (root / "handoff").exists():
         if not findings.exists():
             failures.append("Live run repo should contain findings.md")
         if not run_manifest.exists():
@@ -92,6 +98,17 @@ def main() -> int:
                 visible = [line for line in output.splitlines() if line.strip()]
                 if not visible:
                     failures.append("No GPUs visible via nvidia-smi")
+
+    if args.check_torch:
+        try:
+            subprocess.run(
+                ["python3", "-c", "import torch; print(torch.__version__)"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        except (OSError, subprocess.CalledProcessError) as exc:
+            failures.append(f"Unable to import torch: {exc}")
 
     if failures:
         print("Preflight failed:")

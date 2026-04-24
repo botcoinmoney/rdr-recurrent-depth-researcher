@@ -10,7 +10,7 @@ def test_strategy_matrix_contains_five_grounded_strategies():
 
     transfer_ladder = data["global_framing"]["transfer_ladder"]
     assert transfer_ladder == [
-        "botcoin_structural_fidelity",
+        "scenario_structural_fidelity",
         "real_natural_language_multi_hop",
         "causal_reasoning",
     ]

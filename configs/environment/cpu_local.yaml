@@ -1,0 +1,12 @@
+environment:
+  profile: cpu_local
+  gpus: 0
+  python_min: "3.11"
+  recommended_env:
+    HF_HOME: $HOME/.cache/huggingface
+    TRANSFORMERS_CACHE: $HOME/.cache/huggingface
+    HUGGINGFACE_HUB_CACHE: $HOME/.cache/huggingface
+  install:
+    torch_profile: cpu
+    venv_path: .venv
+    include_dev: true

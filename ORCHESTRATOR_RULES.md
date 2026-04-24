@@ -8,7 +8,7 @@ If you skip gates, weaken tests, or silently substitute a different path, you ar
 
 ## Mission
 
-Produce a ranked, evidence-backed decision on the five first-wave recurrent-depth strategies under the preferred `8xH100` first-wave budget, or the same method stack on `4xH100` with reduced concurrency, with valid probes, valid benchmark readouts, and clean logging.
+Produce a ranked, evidence-backed decision on the active recurrent-depth strategies under the available compute budget, with valid probes, valid benchmark readouts, and clean logging.
 
 ## Absolute Rules
 
@@ -59,9 +59,9 @@ Every benchmark artifact must report:
 
 Without that, you cannot separate reasoning failure from output-format failure.
 
-### 5. DACR-Bench is secondary until prompt/output alignment is explicitly proven
+### 5. Task-specific benchmarks are secondary until prompt/output alignment is explicitly proven
 
-DACR-Bench is useful, but it is not the primary first-wave decision metric if the prompt contract is still unstable.
+Any narrow or format-sensitive benchmark can be useful, but it is not the primary first-wave decision metric if the prompt contract is still unstable.
 
 Primary first-wave behavior readouts:
 
@@ -179,7 +179,6 @@ Every material entry in the live run repo should use:
 
 Success means you can answer:
 
-`Which of the five strategies shows the strongest credible signal for shaping recurrent hidden-state geometry for natural-language multi-hop reasoning, and why?`
+`Which strategy shows the strongest credible signal for shaping recurrent hidden-state geometry on the current scenario, and why?`
 
 Anything weaker should be reported as incomplete, not successful.
-

@@ -1,6 +1,6 @@
 # Prior Experiment Findings
 
-This document distills the pertinent lessons from the earlier BOTCOIN recurrent-depth experiment work so the orchestrator does **not** need access to the original machine or workspace.
+This document distills the pertinent lessons from earlier recurrent-depth experiment work so the orchestrator does **not** need access to the original machine or workspace.
 
 Everything here is included because it materially changes how a fresh run should be executed.
 
@@ -39,7 +39,7 @@ Observed failure modes included:
 
 - prompt echo
 - repetitive answer templates
-- normal simple completion but broken DACR-style reasoning output
+- normal simple completion but broken structured reasoning output
 
 Implication:
 
@@ -70,17 +70,17 @@ Implication:
 
 - the first wave should be a signal hunt, not an aggressive optimization campaign
 
-### 6. DACR-Bench alone was not a safe early go/no-go
+### 6. A narrow task-specific benchmark alone was not a safe early go/no-go
 
 Why:
 
 - prompt/output formatting can dominate the score
-- a model can fail the strict contract without proving the underlying reasoning signal is absent
+- a model can fail a strict format contract without proving the underlying reasoning signal is absent
 
 Implication:
 
 - use standard benchmarks like HotpotQA and DROP as primary early behavior checks
-- treat DACR-Bench as secondary until the prompt/output contract is proven stable
+- treat any narrow format-sensitive benchmark as secondary until the prompt/output contract is proven stable
 
 ### 7. The training corpus and probe corpus must be handled differently
 
@@ -124,4 +124,3 @@ The orchestrator should behave as if the prior experiment already paid for sever
 5. letting format issues dominate interpretation
 
 The value of this handoff package is that those lessons are now bundled here, rather than being trapped on the original machine.
-

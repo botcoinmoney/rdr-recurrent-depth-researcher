@@ -2,7 +2,7 @@
 
 This document is for the orchestrator receiving this repository on a fresh machine.
 
-Nothing in the intended operating flow should depend on access to the original BOTCOIN workspace. The pertinent prior findings and framing corrections are bundled into this repository.
+Nothing in the intended operating flow should depend on access to the original development workspace. The pertinent prior findings and framing corrections are bundled into this repository.
 
 ## What This Repo Is
 
@@ -22,7 +22,7 @@ It is not:
 
 The first wave is trying to answer:
 
-`Which of the five probe strategies shows the strongest credible positive signal that BOTCOIN-style multi-hop traces can shape recurrent hidden-state geometry for natural-language multi-hop reasoning and causal reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours?`
+`Which of the five probe strategies shows the strongest credible positive signal that structured recurrent-depth supervision can shape recurrent hidden-state geometry for natural-language multi-hop reasoning and causal reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours?`
 
 ## The Main Framing Corrections
 
@@ -31,9 +31,9 @@ Carry these forward into every decision:
 1. prior experiment history, as distilled in `docs/PRIOR_EXPERIMENT_FINDINGS.md`, showed that invalid measurement paths can create false confidence
 2. low loss can indicate memorization rather than learning
 3. output gates matter as much as train loss
-4. DACR-Bench can be misleading early if the prompt/output contract is not aligned
+4. narrow task-specific benchmarks can be misleading early if the prompt/output contract is not aligned
 5. strategy ranking matters more than any single raw score
-6. BOTCOIN-only structure is not enough unless it transfers to real tasks
+6. scenario-only structure is not enough unless it transfers to real tasks
 
 ## The Five First-Wave Strategies
 

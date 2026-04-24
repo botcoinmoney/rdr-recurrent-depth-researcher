@@ -1,0 +1,17 @@
+recipes:
+  identity:
+    mode: identity
+  scramble_preserve_format:
+    mode: scramble_preserve_format
+  evidence_ablate:
+    mode: evidence_ablate
+  evidence_slice:
+    mode: evidence_slice
+    max_items: 1
+  minimal_correction:
+    mode: minimal_correction
+  boundary_markers:
+    mode: boundary_markers
+    marker: "<hop>"
+  contrastive_correction:
+    mode: contrastive_correction

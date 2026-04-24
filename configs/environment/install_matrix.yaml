@@ -1,0 +1,46 @@
+version: 1
+python:
+  min: "3.11"
+  recommended: "3.11"
+pip_bootstrap_packages:
+  - pip
+  - setuptools>=68
+  - wheel
+base_packages:
+  - PyYAML==6.0.3
+  - requests==2.32.5
+dev_packages:
+  - pytest==8.4.2
+torch_profiles:
+  cpu:
+    label: cpu
+    description: CPU-only install for local validation and non-GPU workflows.
+    index_url: https://download.pytorch.org/whl/cpu
+    packages:
+      - torch==2.10.0
+      - torchvision==0.25.0
+      - torchaudio==2.10.0
+  cu126:
+    label: cu126
+    description: CUDA 12.6 wheels for modern NVIDIA workstations and shared GPU hosts.
+    index_url: https://download.pytorch.org/whl/cu126
+    packages:
+      - torch==2.10.0
+      - torchvision==0.25.0
+      - torchaudio==2.10.0
+  cu128:
+    label: cu128
+    description: CUDA 12.8 wheels for newer NVIDIA environments that standardize on 12.8.
+    index_url: https://download.pytorch.org/whl/cu128
+    packages:
+      - torch==2.10.0
+      - torchvision==0.25.0
+      - torchaudio==2.10.0
+  cu124-legacy:
+    label: cu124-legacy
+    description: CUDA 12.4 fallback for older cluster images that cannot move past the 12.4 wheel line yet.
+    index_url: https://download.pytorch.org/whl/cu124
+    packages:
+      - torch==2.4.1
+      - torchvision==0.19.1
+      - torchaudio==2.4.1

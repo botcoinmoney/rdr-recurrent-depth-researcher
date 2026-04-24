@@ -1,9 +1,9 @@
 version: 1
 global_framing:
   run_type: signal_hunt
-  primary_question: "Which first-wave strategy shows the strongest credible signal that BOTCOIN-style multi-hop traces can shape recurrent hidden-state geometry for natural-language multi-hop reasoning and causal reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours?"
+  primary_question: "Which first-wave strategy shows the strongest credible signal that structured recurrent-depth supervision can shape recurrent hidden-state geometry and transfer to real multi-hop and causal reasoning under the available first-wave budget?"
   transfer_ladder:
-    - botcoin_structural_fidelity
+    - scenario_structural_fidelity
     - real_natural_language_multi_hop
     - causal_reasoning
   real_transfer_targets:
@@ -39,7 +39,7 @@ strategies:
     order: 1
     priority: highest
     hypothesis: "Base recurrent depth may already contain measurable natural-language multi-hop signal; if so, later strategies should amplify rather than install structure."
-    transfer_stage: botcoin_structural_fidelity
+    transfer_stage: scenario_structural_fidelity
     why_this_exists:
       - "Pass 2 correctly treated the probe baseline as the measuring instrument for the entire matrix."
       - "Pass 1 correctly emphasized that latent instability and rank inconsistency must be observed directly, not inferred from benchmark scores."
@@ -72,10 +72,10 @@ strategies:
     name: Hop-aligned auxiliary supervision
     order: 2
     priority: highest
-    hypothesis: "Step-aligned latent supervision can install stable hop-aware recurrent structure using DACR trace steps as direct supervision targets."
+    hypothesis: "Step-aligned latent supervision can install stable hop-aware recurrent structure using structured trace steps as direct supervision targets."
     transfer_stage: real_natural_language_multi_hop
     why_this_exists:
-      - "Pass 1 identified latent step alignment as the best way to turn explicit DACR traces into implicit computation targets."
+      - "Pass 1 identified latent step alignment as the best way to turn explicit structured traces into implicit computation targets."
       - "Pass 2 operationalized this with a budgeted SIM-CoT-style auxiliary decoder plan."
       - "Local failures showed the exact collapse mode SIM-CoT is designed to address."
     grounded_evidence:
@@ -87,7 +87,7 @@ strategies:
         - "small, conservative core-focused runs were the only repaired positives"
     budget_gpu_hours: 22
     data_requirements:
-      - DACR_examples_with_3plus_extractions_and_linear_step_alignment
+      - structured_trace_examples_with_3plus_extractions_and_linear_step_alignment
       - external_eval_hotpotqa
       - external_eval_musique_if_available
       - external_eval_drop
@@ -122,7 +122,7 @@ strategies:
         - "depth effects must be measured directly"
     budget_gpu_hours: 18
     data_requirements:
-      - DACR_bucketed_by_hop_count
+      - structured_trace_corpus_bucketed_by_hop_count
       - external_eval_hotpotqa
       - external_eval_musique_if_available
     metrics:
@@ -144,7 +144,7 @@ strategies:
     why_this_exists:
       - "Pass 2 correctly preserved this as the main alternative hypothesis to step-installed structure."
       - "Pass 1's focus on latent geometry and separability maps naturally onto trajectory-level discrimination."
-      - "BOTCOIN raw attempts provide same-context positive/negative trajectories unusually well."
+      - "Structured task attempts often provide same-context positive and negative trajectories unusually well."
     grounded_evidence:
       papers:
         - "trajectory-level latent credit assignment"
@@ -152,7 +152,7 @@ strategies:
         - "dataset audit identified abundant positive/negative raw attempts and same-session contrasts"
     budget_gpu_hours: 20
     data_requirements:
-      - DACR_positive_negative_pairs
+      - structured_trace_positive_negative_pairs
       - external_eval_hotpotqa
       - external_eval_causal_suite_if_available
     metrics:

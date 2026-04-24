@@ -19,7 +19,7 @@ The orchestrator is not allowed to improvise around failed gates, stale measurem
 3. Never continue a run after clear collapse indicators just because GPUs are already rented.
 4. Never reuse stale probe artifacts after changing code, data filtering, prompt contracts, or hidden-state extraction logic.
 5. Never accept a result without parseable-rate accounting when output formatting matters.
-6. Never let DACR-Bench override stronger evidence from standard benchmarks if the prompt/output contract is still unstable.
+6. Never let a narrow task-specific benchmark override stronger evidence from standard benchmarks if the prompt/output contract is still unstable.
 7. Never scale from a single positive metric. Require convergence of probe, behavior, and depth evidence.
 
 ## Repo Separation
@@ -54,5 +54,4 @@ The first wave is a signal hunt, not a productization run and not a claim of sol
 
 The actual question is:
 
-`Which training/data strategy shows the strongest credible evidence that BOTCOIN-style data can shape recurrent hidden-state geometry for natural-language multi-hop reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours?`
-
+`Which training, data, and evaluation strategy shows the strongest credible evidence of durable recurrent-depth improvement on the current scenario, under the available compute budget, while preserving valid controls and reproducible measurement?`

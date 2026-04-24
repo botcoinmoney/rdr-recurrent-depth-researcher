@@ -1,6 +1,6 @@
 # Live Experiment Run Repo
 
-This is the live private run repository for a BOTCOIN latent-reasoning signal hunt.
+This is the live private run repository for one recurrent-depth research campaign.
 
 It was created from the standalone handoff package and is the canonical place for:
 
@@ -34,4 +34,3 @@ Track one concrete experiment campaign cleanly and reproducibly.
 6. `handoff/docs/PRIOR_EXPERIMENT_FINDINGS.md`
 7. `handoff/docs/RESEARCH_SYNTHESIS.md`
 8. `findings.md`
-

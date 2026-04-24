@@ -12,9 +12,9 @@ The earlier repository framing was already directionally strong, but the current
 2. latent reasoning exists in useful forms, but it is unstable, depth-sensitive, and only partially readable
 3. success on symbolic or synthetic hop structure does **not** automatically transfer to real natural-language multi-hop or causal reasoning
 
-That third point matters most for BOTCOIN.
+That third point matters most for any scenario built from structured traces or synthetic reasoning artifacts.
 
-BOTCOIN challenge traces are valuable because they expose:
+Structured challenge traces are valuable because they expose:
 
 - multi-hop decompositions
 - same-task positive and negative attempts
@@ -57,7 +57,7 @@ arXiv: `2509.20317`, posted `September 24, 2025`
 Why it matters:
 
 - strongest current step-aligned supervision result for stabilizing latent reasoning
-- directly matches BOTCOIN's opportunity to convert explicit traces into stable latent states
+- directly matches the opportunity to convert explicit traces into stable latent states
 
 #### `Koishekenov et al., 2025`
 `Encode, Think, Decode: Scaling test-time reasoning with recursive latent thoughts`
@@ -75,7 +75,7 @@ arXiv: `2602.11451`, posted `February 11, 2026`
 Why it matters:
 
 - strongest current elastic-depth training recipe
-- supports evaluating whether BOTCOIN strategies scale smoothly across different recurrence budgets
+- supports evaluating whether strategy families scale smoothly across different recurrence budgets
 
 #### `Kohli et al., 2026`
 `Loop, Think, & Generalize: Implicit Reasoning in Recurrent-Depth Transformers`
@@ -124,7 +124,7 @@ arXiv: `2506.22865`, posted `June 2025`
 Why it matters:
 
 - strong teacher-transfer framing for reasoning trajectories
-- suggests BOTCOIN traces should be paired with natural-language paraphrase targets when possible
+- suggests structured traces should be paired with natural-language paraphrase targets when possible
 
 #### `Causal Distillation, 2025`
 `Causal Distillation: Transferring Structured Explanations from Large to Compact Language Models`
@@ -135,11 +135,11 @@ Why it matters:
 - best direct support for preserving causal directionality during transfer
 - helps distinguish genuine causal transfer from shallow step imitation
 
-## Updated BOTCOIN Position
+## Updated Position
 
 The strongest April 2026 framing is:
 
-- use BOTCOIN challenge data to teach **latent transition structure**
+- use structured challenge data to teach **latent transition structure**
 - use real natural-language benchmarks to test whether that structure survives paraphrase, aliasing, distractors, and evidence selection
 - treat causal reasoning as a separate transfer target, not as a deeper version of plain multi-hop
 
@@ -187,7 +187,7 @@ A better curriculum axis is:
 
 ### 4. Trajectory scoring should include causal usefulness
 
-Positive and negative BOTCOIN attempts should be labeled for:
+Positive and negative attempts should be labeled for:
 
 - final correctness
 - evidence sufficiency
@@ -219,7 +219,7 @@ A defensible fallback is:
 
 The most defensible first move is still a tightly gated **signal hunt**.
 
-As of `April 22, 2026`, that signal hunt should be judged by whether BOTCOIN supervision transfers into:
+As of `April 22, 2026`, that signal hunt should be judged by whether structured supervision transfers into:
 
 - real natural-language multi-hop reasoning
 - causal directionality

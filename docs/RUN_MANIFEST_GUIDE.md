@@ -8,7 +8,7 @@ Use `configs/run_manifest.yaml` as the source template, then copy the values int
 
 The manifest makes the experiment auditable at a glance. It should answer:
 
-1. what exact BOTCOIN/DACR transfer question is being tested
+1. what exact recurrent-depth transfer question is being tested
 2. which real natural-language multi-hop tasks will validate transfer
 3. which causal reasoning tasks will validate transfer beyond multi-hop
 4. what datasets, prompts, and snapshots were actually used
@@ -33,7 +33,7 @@ At minimum, record:
 
 Keep the manifest aligned to three rungs:
 
-1. `BOTCOIN structural fidelity`
+1. `scenario structural fidelity`
 2. `real natural-language multi-hop transfer`
 3. `causal reasoning transfer`
 

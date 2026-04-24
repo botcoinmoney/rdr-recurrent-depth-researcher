@@ -14,7 +14,7 @@ def test_run_manifest_includes_transfer_ladder_and_checklists():
     transfer_ladder = data["mission"]["transfer_ladder"]
     stages = [item["stage"] for item in transfer_ladder]
     assert stages == [
-        "botcoin_structural_fidelity",
+        "scenario_structural_fidelity",
         "real_multi_hop_transfer",
         "causal_transfer",
     ]

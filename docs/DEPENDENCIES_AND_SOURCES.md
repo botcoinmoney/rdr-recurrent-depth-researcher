@@ -1,6 +1,6 @@
 # Dependencies And Sources
 
-This document exists so the orchestrator can work from a fresh GPU template without access to the original BOTCOIN system.
+This document exists so the orchestrator can work from a fresh GPU template without access to the original development machine.
 
 Everything needed to understand the run is either:
 
@@ -31,32 +31,29 @@ Purpose:
 
 - recurrent-depth base model for the first-wave probe strategies
 
-### 2. BOTCOIN/DACR training data
+### 2. Training data
 
-- `botcoinmoney/domain-agnostic-causal-reasoning-tuning`
+Use one or more of:
 
-Purpose:
-
-- structured multi-hop training traces
-- source for SFT, GRPO, PRM, and DPO-style variants
-
-### 3. DACR benchmark
-
-- `github.com/botcoinmoney/dacr-bench`
+- local structured trace corpora
+- public multi-hop reasoning datasets
+- public causal reasoning datasets
+- domain-specific corpora materialized through `data_recipes.yaml`
 
 Purpose:
 
-- secondary behavior benchmark once prompt/output alignment is validated
+- structured supervision for recurrent-depth training or probing
+- source for SFT, DPO-style, contrastive, correction, or probe-focused variants
 
-### 4. Synthetic-to-real training/eval code
+### 3. Task-specific benchmark suites
 
-- `github.com/botcoinmoney/synthetic-to-real-reasoning`
+Use a benchmark only when its prompt and output contract are stable enough to interpret.
 
 Purpose:
 
-- reference implementation path for DACR data usage and evaluation patterns if needed
+- secondary behavior checks once formatting and parsing are validated
 
-### 5. Standard benchmark sources
+### 4. Standard benchmark sources
 
 Use your standard internal or public access path for:
 
@@ -90,7 +87,7 @@ For a dated, April 22, 2026 refresh with exact paper framing and transfer implic
 
 ## Fresh-System Rule
 
-If the orchestrator is missing information and cannot access the original BOTCOIN machine, it should rely on:
+If the orchestrator is missing information and cannot access the original development machine, it should rely on:
 
 1. the distilled documents in this handoff repo
 2. the external sources listed here

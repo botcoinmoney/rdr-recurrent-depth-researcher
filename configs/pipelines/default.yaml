@@ -1,0 +1,215 @@
+version: 1
+name: recurrent-depth-general-harness
+mission:
+  primary_question: "Which recurrent-depth training, data, or evaluation path shows the strongest positive signal for durable reasoning transfer on the current scenario?"
+  framing: "Continuously search for research-backed experiments, prioritize transfer over synthetic-only wins, and narrow toward settings that create real latent improvement rather than mere format compliance."
+research:
+  queries:
+    - recurrent depth transformer reasoning
+    - latent reasoning recurrent transformer
+    - looped transformer depth extrapolation
+    - multi hop reasoning recurrent training
+    - causal reasoning latent transformer
+    - stable looped language models recurrent depth
+  max_results_per_query: 6
+  max_saved_papers: 15
+data_discovery:
+  manual_manifest: manual_data_sources.yaml
+  local_globs:
+    - datasets/**/*.*
+    - data/**/*.json*
+    - data/**/*.csv
+    - data/**/*.parquet
+  queries:
+    - multi-hop reasoning dataset
+    - causal reasoning dataset
+    - synthetic reasoning traces
+    - recurrent reasoning training repo
+    - contrastive correction dataset reasoning
+    - evidence grounded qa dataset
+  max_results_per_query: 5
+  providers:
+    huggingface: true
+    github: true
+grounding:
+  prior_findings:
+    - id: depth_curve_baseline
+      lesson: "Every depth-conditioned gain must be benchmarked against a no-adapter baseline depth curve."
+    - id: absolute_deep_performance
+      lesson: "Absolute deep-depth performance matters as much as slope; decline resistance alone is not enough."
+    - id: scramble_control
+      lesson: "Matched scramble controls are mandatory before claiming data-specific latent improvement."
+    - id: evidence_mediation
+      lesson: "Evidence availability is part of the mechanism and must be varied explicitly."
+    - id: surface_vs_latent
+      lesson: "Surface collapse and latent structure are separable, so evaluate both."
+    - id: multi_depth_eval
+      lesson: "Shallow-depth regressions do not settle the question; evaluate across multiple recurrence depths."
+  evaluation_requirements:
+    - compare every candidate against a no-adapter depth curve
+    - report absolute deep-depth performance and not only slope
+    - include a matched scramble or format-preserving control
+    - include evidence-present and evidence-ablated conditions when applicable
+    - track both latent metrics and surface behavior metrics
+    - evaluate across multiple recurrence depths rather than a single R
+recurrent_knobs:
+  families:
+    - id: loop_depth_schedule
+      description: "Training-time and inference-time recurrence schedule."
+      rationale: "Generalized from recurrent-depth literature and the need to inspect multi-R behavior."
+      candidate_values: [fixed_8, fixed_16, curriculum_4_to_16, dynamic_sampled_4_32]
+    - id: depth_extrapolation_probe
+      description: "How far inference loops extend beyond train loops."
+      rationale: "Useful only when paired with absolute-performance checks."
+      candidate_values: [none, plus_50pct, plus_100pct]
+    - id: evidence_injection_mode
+      description: "Whether evidence is reinjected or strictly localized during the recurrent process."
+      rationale: "Inspired by frozen-input reinjection designs and your evidence-mediated findings."
+      candidate_values: [none, frozen_input_reinjection, retrieval_slice_reinjection]
+    - id: stability_constraint
+      description: "Constraint family for preventing loop drift or explosion."
+      rationale: "OpenMythos highlights LTI-style stability as a hypothesis worth testing as a knob."
+      candidate_values: [none, spectral_radius_guard, lti_diagonal_injection]
+    - id: halting_policy
+      description: "Adaptive computation policy for easy versus hard tokens/examples."
+      rationale: "ACT-style halting is a plausible compute-allocation knob, not a fixed truth."
+      candidate_values: [fixed_loops, act_095, act_099]
+    - id: loop_index_signal
+      description: "How the recurrent block is informed about current loop depth."
+      rationale: "Loop-index embeddings may help distinguish stages of recurrent refinement."
+      candidate_values: [none, sinusoidal_loop_index, learned_loop_embedding]
+    - id: per_loop_adapter
+      description: "How much loop-specific adaptation is allowed beyond tied recurrent weights."
+      rationale: "Can matter for expressivity, but must be separated from shallow format learning."
+      candidate_values: [none, lora_rank_4, lora_rank_8, lora_rank_16]
+    - id: recurrent_ffn_mode
+      description: "Dense or sparse FFN structure inside the recurrent block."
+      rationale: "Sparse experts may buy specialization, but only if they improve real transfer."
+      candidate_values: [dense, moe_top2_shared1, moe_top4_shared2]
+    - id: attention_cache_mode
+      description: "Attention memory/compression regime."
+      rationale: "Useful systems knob when deeper recurrent sweeps would otherwise be too expensive."
+      candidate_values: [standard, gqa, mla]
+    - id: scaffold_partition
+      description: "How much of the model sits outside the recurrent loop."
+      rationale: "Prelude/coda split is a controllable architectural degree of freedom."
+      candidate_values: [minimal_1_1, balanced_2_2, heavier_prelude_4_2]
+idea_generation:
+  roles:
+    - theorist
+    - data_scout
+    - skeptic
+  max_ideas: 6
+  llm:
+    provider: none
+    model: gpt-5.4
+    base_url:
+  strategy_templates:
+    - title: Latent probe baseline
+      hypothesis_template: "Using {dataset} with a readout probe should reveal whether the current model family already contains linearly recoverable recurrent-depth signal consistent with {paper}."
+      approach: "Fit shallow and pooled latent probes across recurrence depths, compare against a no-adapter baseline curve, and include matched scramble controls."
+      expected_signal: "Probe AUC or depth-conditioned separability improves in a way that beats scramble and preserves absolute deep-depth behavior."
+      risk: "Readable latent structure may still fail to transfer into external behavior."
+    - title: Hop-role auxiliary supervision
+      hypothesis_template: "{dataset} can be reformatted into hop-role labels that stabilize latent transition structure in the spirit of {paper}."
+      approach: "Add auxiliary supervision for retrieve, bridge, alias, distractor-reject, and causal-link roles while minimizing format surface area."
+      expected_signal: "Probe stability improves and real multi-hop accuracy nudges upward without surface collapse."
+      risk: "The model may overfit format labels without improving reasoning."
+    - title: Dynamic recurrence curriculum
+      hypothesis_template: "Training on {dataset} with variable recurrence budgets should improve depth extrapolation and reduce overthinking failure modes highlighted by {paper}."
+      approach: "Sample recurrence depth during training, compare against matched fixed-depth baselines, and evaluate monotonicity across test-time depth."
+      expected_signal: "Quality improves from shallow to moderate recurrence without collapse."
+      risk: "Higher depth can still induce overthinking or shortcut reuse."
+    - title: Evidence-sliced correction training
+      hypothesis_template: "{dataset} may work better as evidence-sliced correction targets than as full reasoning traces, informed by {paper}."
+      approach: "Train on local evidence snippets, wrong-to-correct revisions, and minimal task statements rather than long-form trace imitation."
+      expected_signal: "Absolute deep-depth performance improves while scramble controls stay flat."
+      risk: "The method can look strong on repair-style probes while still failing real transfer."
+    - title: Boundary and format ablation
+      hypothesis_template: "Explicit reasoning boundaries in {dataset} may improve latent alignment, but {paper} suggests they need to be validated against real transfer."
+      approach: "Run matched control/treatment datasets with and without structural delimiters and compare against no-adapter and scramble baselines."
+      expected_signal: "One formatting choice clearly dominates without hurting parseability."
+      risk: "Boundary tokens may amplify format overfitting."
+execution:
+  mode: builtin_research_pipeline
+  ideas_per_cycle: 2
+  base_model_preset: huginn_0125
+  base_model_presets:
+    huginn_0125:
+      label: Huginn 0125
+      pointer: tomg-group-umd/huginn-0125
+      source: huggingface
+      notes: Public recurrent-depth Huginn 3.5B family checkpoint and the default preset for this harness.
+    ouro_1_4b_thinking:
+      label: Ouro 1.4B Thinking
+      pointer: ByteDance/Ouro-1.4B-Thinking
+      source: huggingface
+      notes: Smaller looped reasoning model suited to lighter experiments and local validation.
+    ouro_2_6b_thinking:
+      label: Ouro 2.6B Thinking
+      pointer: ByteDance/Ouro-2.6B-Thinking
+      source: huggingface
+      notes: Larger public Ouro reasoning checkpoint with adjustable recurrent-step settings.
+  base_model: ""
+  metrics_file: metrics.json
+  data_recipe_manifest: data_recipes.yaml
+  default_candidate_recipe: evidence_slice
+  candidate_recipe_overrides:
+    retrieve: evidence_slice
+    local evidence snippets: evidence_slice
+    wrong-to-correct revisions: contrastive_correction
+    delimiters: boundary_markers
+    boundary: boundary_markers
+    minimal task statements: minimal_correction
+  depth_sweep: [4, 8, 16, 32]
+  eval_conditions:
+    - default
+    - evidence_ablated
+  variant_plan:
+    - role: baseline
+      recipe: identity
+      train: false
+      model_variant: true
+    - role: candidate
+      recipe_from_idea: true
+      train: true
+      model_variant: true
+    - role: scramble_control
+      recipe: scramble_preserve_format
+      train: true
+      model_variant: true
+    - role: eval_default
+      recipe: identity
+      train: false
+      model_variant: false
+      evaluate: false
+    - role: eval_evidence_ablated
+      recipe: evidence_ablate
+      train: false
+      model_variant: false
+      evaluate: false
+  commands:
+    train: ""
+    eval: ""
+    probe: ""
+ranking:
+  higher_is_better:
+    - positive_signal
+    - scramble_gap
+    - deep_absolute_gain
+    - probe_auc
+    - hotpotqa_em
+    - causal_em
+    - composite_score
+  lower_is_better:
+    - loss
+    - latency_ms
+    - scramble_match
+    - filler_rate
+loop:
+  sleep_seconds: 300
+  max_cycles: 0
+  git:
+    ensure_repo: true
+    auto_commit: true
+    commit_message_prefix: "rdh cycle"

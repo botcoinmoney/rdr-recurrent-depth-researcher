@@ -6,11 +6,11 @@ sudo apt-get install -y git curl wget tmux python3-venv build-essential
 
 mkdir -p "${HOME}/.cache/huggingface" "${HOME}/venvs" "${HOME}/runs"
 
-if [[ ! -d "${HOME}/venvs/botcoin-lt" ]]; then
-  python3 -m venv "${HOME}/venvs/botcoin-lt"
+if [[ ! -d "${HOME}/venvs/rdh" ]]; then
+  python3 -m venv "${HOME}/venvs/rdh"
 fi
 
-source "${HOME}/venvs/botcoin-lt/bin/activate"
+source "${HOME}/venvs/rdh/bin/activate"
 python -m pip install --upgrade pip setuptools wheel
 
 cat <<'EOF'

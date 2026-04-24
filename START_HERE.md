@@ -1,79 +1,76 @@
 # Start Here
 
-If you are the orchestrator on a fresh GPU machine, do this in order.
+The intended workflow is:
 
-## Mission
+1. initialize a workspace
+2. point the workspace at a preset base model and real data
+3. wire in real train/eval/probe commands
+4. let the loop run with Codex, Claude Code, or API mode
 
-Your job is not to “train the best model.”
+## Minimal Setup
 
-Your first-wave job is narrower:
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python3 scripts/setup_env.py --profile auto
+rdh init-workspace --workspace /root/rdh-workspace
+cd /root/rdh-workspace
+```
 
-`Identify the most promising training/data strategy for shaping recurrent hidden-state geometry for natural-language multi-hop reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours.`
+## Required Edits
 
-This is a signal hunt with strict gates.
+Edit `pipeline.yaml`:
 
-## Read In This Order
+- choose `idea_generation.llm.provider`
+- choose `execution.base_model_preset`
+- optionally override with `execution.base_model`
+- set `execution.commands.train`
+- set `execution.commands.eval`
+- optionally set `execution.commands.probe`
 
-1. `README.md`
-2. `ORCHESTRATOR_RULES.md`
-3. `docs/PRIOR_EXPERIMENT_FINDINGS.md`
-4. `docs/CANONICAL_TESTING_METHODS.md`
-5. `docs/H100_SETUP.md`
-6. `docs/DEPENDENCIES_AND_SOURCES.md`
-7. `docs/RESEARCH_SYNTHESIS.md`
-8. `docs/RESEARCH_REFRESH_2026.md`
-9. `docs/MEASUREMENT_AND_GATES.md`
-10. `docs/GPU_OPTIMIZATION_CHECKLIST.md`
-11. `docs/EXECUTION_PLAYBOOK.md`
-12. `docs/COMMON_FAILURE_MODES.md`
-13. `docs/HANDOFF.md`
+Preset checkpoints shipped by default:
 
-Do not start setup until you have read at least through `docs/MEASUREMENT_AND_GATES.md`.
+- `huginn_0125` -> `tomg-group-umd/huginn-0125`
+- `ouro_1_4b_thinking` -> `ByteDance/Ouro-1.4B-Thinking`
+- `ouro_2_6b_thinking` -> `ByteDance/Ouro-2.6B-Thinking`
 
-For the actual first-wave method design, `docs/CANONICAL_TESTING_METHODS.md` is the primary source of truth.
-Before starting the main run, `docs/GPU_OPTIMIZATION_CHECKLIST.md` must also pass.
+Edit data inputs:
 
-## Immediate Operating Rules
+- place local datasets under `datasets/`, or
+- point `manual_data_sources.yaml` at them
 
-- Do not merge adapters into the base model.
-- Do not start training before baseline gates pass.
-- Do not trust low loss by itself.
-- Do not use DACR-Bench as the primary first-wave go/no-go.
-- Do not continue a checkpoint that fails output gates.
-- Do not reuse stale probe artifacts.
-- Do not improvise around failed gates.
+Edit transform surface:
 
-## First Actions On A Fresh Machine
+- change `data_recipes.yaml` when you want to alter supervision format, style, evidence structure, or control variants
 
-1. Clone this repo.
-2. Run the machine bootstrap from `docs/H100_SETUP.md`.
-3. Validate this repo:
-   - `python3 scripts/validate_strategy_matrix.py`
-   - `python3 scripts/preflight_check.py --root .`
-4. Create the live private run repo:
-   - `bash scripts/create_run_repo.sh botcoin-lt-run-$(date -u +%Y%m%d-%H%M)`
-5. Move into the live run repo and commit immediately.
-6. Validate the live run repo:
-   - `python3 handoff/scripts/preflight_check.py --root .`
-7. Fill in `run_manifest.yaml` at the root of the live run repo.
-8. Start baseline setup and baseline gates only.
+## Run
 
-## What Success Looks Like
+One cycle:
 
-At the end of wave 1, you should have:
+```bash
+rdh run-cycle --workspace .
+```
 
-- a valid baseline anchor
-- valid probe outputs
-- valid benchmark outputs with parseable rates
-- a ranked strategy matrix
-- a clear next-step recommendation
+Continuous:
 
-## If You Feel Tempted To “Just Try Something”
+```bash
+rdh loop --workspace .
+```
 
-Stop and re-read:
+## If You Are Using Codex Or Claude Code
 
-- `ORCHESTRATOR_RULES.md`
-- `docs/COMMON_FAILURE_MODES.md`
-- `docs/MEASUREMENT_AND_GATES.md`
+Keep `provider: none`, then paste `agent_bootstrap.md` into your IDE agent once.
 
-The repo is designed so you do not have to improvise.
+## If You Are Using APIs
+
+Export the right key, set the provider in `pipeline.yaml`, and run the loop.
+
+## Before You Start Large Runs
+
+Read:
+
+1. [README.md](/root/recurrent-depth-autoresearch-harness/README.md)
+2. [docs/GENERALIZED_RECURRENT_DEPTH_LESSONS.md](/root/recurrent-depth-autoresearch-harness/docs/GENERALIZED_RECURRENT_DEPTH_LESSONS.md)
+3. [docs/OPENMYTHOS_DEEP_DIVE.md](/root/recurrent-depth-autoresearch-harness/docs/OPENMYTHOS_DEEP_DIVE.md)
+
+The harness is opinionated about controls on purpose. It is trying to reduce false-positive recurrent-depth stories, not just produce more runs.

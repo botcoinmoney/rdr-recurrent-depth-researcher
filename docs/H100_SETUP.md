@@ -2,6 +2,8 @@
 
 This document is for a fresh `H100` Linux instance.
 
+For the current repo, prefer the profile-driven bootstrap in [docs/RUNTIME_SETUP.md](/root/recurrent-depth-autoresearch-harness/docs/RUNTIME_SETUP.md) instead of hand-managing package versions.
+
 Use this rule:
 
 - if `8xH100` is available, use the canonical short-wallclock plan in this repo
@@ -19,7 +21,7 @@ The orchestrator should complete this setup before cloning or launching the live
 
 ## Required Tools
 
-- Python `3.11+`
+- Python `3.10+`
 - `git`
 - `gh`
 - `tmux` or equivalent
@@ -31,13 +33,13 @@ Recommended host layout:
 
 ```text
 ${HOME}/
-├── botcoin-latent-reasoning-orchestrator/
+├── recurrent-depth-autoresearch-harness/
 ├── runs/
 │   └── <live-private-run-repo>/
 ├── .cache/
 │   └── huggingface/
 └── venvs/
-    └── botcoin-lt/
+    └── rdh/
 ```
 
 Do not place Hugging Face caches on unstable network mounts if a local disk path is available.
@@ -85,12 +87,10 @@ huggingface-cli login
 
 ```bash
 mkdir -p "$HOME/venvs"
-python3 -m venv "$HOME/venvs/botcoin-lt"
-. "$HOME/venvs/botcoin-lt/bin/activate"
-python -m pip install --upgrade pip
+python3 -m venv "$HOME/venvs/rdh"
+. "$HOME/venvs/rdh/bin/activate"
+python3 scripts/setup_env.py --profile h100_8gpu
 ```
-
-Then install repo requirements from this handoff package or the live run repo.
 
 ## GPU Sanity Checks
 
@@ -130,12 +130,11 @@ This is mandatory if the machine has shown unstable or remote-cache behavior bef
 
 ```bash
 cd "$HOME"
-git clone git@github.com:botcoinmoney/botcoin-latent-reasoning-orchestrator.git
-cd botcoin-latent-reasoning-orchestrator
-. "$HOME/venvs/botcoin-lt/bin/activate"
-pip install -e ".[dev]"
+git clone git@github.com:botcoinmoney/recurrent-depth-autoresearch-harness.git
+cd recurrent-depth-autoresearch-harness
+. "$HOME/venvs/rdh/bin/activate"
 python3 scripts/validate_strategy_matrix.py
-python3 scripts/preflight_check.py --root .
+python3 scripts/preflight_check.py --root . --check-torch
 ```
 
 ## Create The Live Run Repo
@@ -145,8 +144,8 @@ Do not run the actual experiment directly in this handoff repo.
 Create a fresh private run repo:
 
 ```bash
-cd "$HOME/botcoin-latent-reasoning-orchestrator"
-bash scripts/create_run_repo.sh botcoin-lt-run-$(date -u +%Y%m%d-%H%M)
+cd "$HOME/recurrent-depth-autoresearch-harness"
+bash scripts/create_run_repo.sh rdh-run-$(date -u +%Y%m%d-%H%M)
 ```
 
 This creates a separate repo under `$HOME/runs/` and bundles a `handoff/` snapshot into that live run repo so the run remains self-contained even if this handoff repo is not kept around.
@@ -179,4 +178,3 @@ Proceed only if:
 - rules file exists
 
 Before the main run begins, also pass `docs/GPU_OPTIMIZATION_CHECKLIST.md`.
-

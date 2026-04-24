@@ -41,7 +41,7 @@ Inside the live run repo:
    - target datasets
 4. initialize the run manifest from `configs/run_manifest.yaml`
 5. record the transfer ladder targets:
-   - BOTCOIN structural fidelity
+   - scenario structural fidelity
    - natural-language multi-hop transfer
    - causal reasoning transfer
 
@@ -83,7 +83,7 @@ The orchestrator should distinguish between:
 
 The strategy family here assumes:
 
-- BOTCOIN/DACR clean positives for training
+- clean structured positives for training
 - balanced positive/negative examples for probes
 - HotpotQA / DROP / MuSiQue-style external behavior checks for multi-hop transfer
 - a causal suite when available for the final transfer rung
@@ -251,9 +251,9 @@ Then classify the next step as one of:
 
 Use this prior when scores are ambiguous:
 
-- if hop-aligned supervision wins, BOTCOIN traces are likely useful as latent step teachers
+- if hop-aligned supervision wins, structured traces are likely useful as latent step teachers
 - if dynamic-R wins, recurrence-aware training is the main missing ingredient
-- if trajectory amplification wins, the recurrent-depth base already had useful structure and BOTCOIN data mainly sharpens it
-- if boundary A/B wins, future BOTCOIN data generation should change
+- if trajectory amplification wins, the recurrent-depth base already had useful structure and the current data mainly sharpens it
+- if boundary A/B wins, future data generation should change
 - if nothing wins, do not escalate to larger compute until the measurement story is fixed
-- if a strategy improves BOTCOIN-only structure but not multi-hop transfer, do not count it as a scale-up win yet
+- if a strategy improves scenario-only structure but not multi-hop transfer, do not count it as a scale-up win yet

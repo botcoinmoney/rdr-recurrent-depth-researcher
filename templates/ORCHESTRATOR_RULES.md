@@ -34,4 +34,6 @@ If other prose in the live run repo conflicts with the handoff method spec, the 
 - do not run training before baseline gates pass
 - do not weaken prompt/output gates for convenience
 - do not start the main schedule until the GPU optimization checklist passes
-
+- keep `findings.md`, `HANDOFF.md`, and the latest cycle report current without waiting for a human reminder
+- refresh research and data catalogs when they are stale relative to the current loop objective
+- prefer explicit benchmark and probe evidence over vibe-based selection of the next run

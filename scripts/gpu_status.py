@@ -6,6 +6,7 @@ import csv
 import shutil
 import subprocess
 import sys
+import warnings
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -89,7 +90,8 @@ def collect_gpu_records() -> list[GpuRecord]:
                 "--format=csv,noheader,nounits",
             ]
         )
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as exc:
+        warnings.warn(f"Could not read GPU process details; continuing without them: {exc}", stacklevel=2)
         raw_processes = ""
 
     for row in parse_csv_rows(raw_processes):

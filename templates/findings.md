@@ -2,27 +2,6 @@
 
 ## Overview
 
-- Run name:
-- Start time:
-- Machine:
-- Base model:
-- Dataset(s):
-- Primary objective:
+Record the run name, machine, base model, datasets, and primary objective before starting jobs.
 
----
-
-### YYYY-MM-DD HH:MM UTC - [Phase] [Action]
-
-**Status**: running
-**Artifacts**:
-- path
-
-**Metrics**:
-- metric: value
-
-**Decision**:
-- continue
-
-**Why**:
-- short explanation
-
+Use one timestamped section per material event.

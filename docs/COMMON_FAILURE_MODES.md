@@ -48,16 +48,16 @@ Right:
 
 - mark it invalid and stop there
 
-## 5. Using DACR-Bench as the only early signal
+## 5. Using a narrow benchmark as the only early signal
 
 Wrong:
 
-- concluding the strategy failed because DACR-Bench is poor while the prompt contract is still shaky
+- concluding the strategy failed because a narrow benchmark is poor while the prompt contract is still shaky
 
 Right:
 
 - use HotpotQA / DROP / MuSiQue-style behavior checks first
-- treat DACR-Bench as secondary until alignment is proven
+- treat narrow or format-sensitive benchmarks as secondary until alignment is proven
 
 ## 6. Reusing stale probes
 
@@ -135,4 +135,3 @@ Wrong:
 Right:
 
 - identify the best next training direction efficiently and credibly
-

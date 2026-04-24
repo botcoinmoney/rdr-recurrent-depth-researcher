@@ -1,6 +1,6 @@
 # Research Synthesis
 
-This document explains **why the first-wave probe strategies exist**, how the two BOTCOIN research passes were weighed against each other, and how those ideas were corrected using the distilled prior experiment findings in this repository plus the strongest current 2025-2026 literature.
+This document explains **why the first-wave probe strategies exist**, how the two earlier research passes were weighed against each other, and how those ideas were corrected using the distilled prior experiment findings in this repository plus the strongest current 2025-2026 literature.
 
 The orchestrator should read this before interpreting the strategy matrix. The goal is to prevent cargo-cult execution.
 
@@ -16,7 +16,7 @@ The two research passes contributed different strengths:
 The final strategy framing in this repository gives **more operational weight to Pass 2**, but keeps a few of Pass 1's best insights where they sharpen the orchestrator's understanding:
 
 1. looped models fail in **specific**, repeated ways: collapse, rank instability, depth overthinking, and format leakage
-2. BOTCOIN/DACR data is valuable because it gives **structured multi-hop chains**, but the signal only matters if it transfers to natural-language multi-hop and then to causal reasoning
+2. structured trace data is valuable because it gives **structured multi-hop chains**, but the signal only matters if it transfers to natural-language multi-hop and then to causal reasoning
 3. first-wave runs should search for **signal**, not pretend to settle the whole latent-reasoning question
 
 The cleanest summary is:
@@ -26,7 +26,7 @@ The cleanest summary is:
 
 The transfer rule for this repository is simple:
 
-1. prove BOTCOIN structural fidelity first
+1. prove scenario structural fidelity first
 2. test whether that structure transfers to real natural-language multi-hop
 3. only then treat causal reasoning as a meaningful out-of-domain check
 
@@ -54,10 +54,10 @@ Keep these ideas:
 - probe baseline first
 - use pre-registered thresholds
 - gate on parseability and prompt contract before training
-- treat DACR-Bench as secondary early on
+- treat narrow or format-sensitive benchmarks as secondary early on
 - compare strategy mechanisms, not just final scores
 
-Pass 2 is the main operational backbone because it reflects the current BOTCOIN reality:
+Pass 2 is the main operational backbone because it reflects the current recurrent-depth reality:
 
 - previous runs already showed collapse with overly expressive LoRA and too much training
 - standard benchmarks exposed transfer better than strict DACR formatting
@@ -145,7 +145,7 @@ Operational takeaway:
 Why it matters:
 
 - strongest evidence that step-level supervision stabilizes implicit/latent reasoning
-- directly addresses the failure mode BOTCOIN already observed: latent collapse under scaling
+- directly addresses the failure mode already observed locally: latent collapse under scaling
 - auxiliary decoder is training-only, so it matches a low-regret first-wave intervention
 
 Operational takeaway:
@@ -212,7 +212,7 @@ The strategies below are not equal-weight copies of the rough passes. They are t
 
 They are also ordered by the transfer ladder that matters for this project:
 
-1. does the model expose BOTCOIN structural fidelity at all
+1. does the model expose scenario structural fidelity at all
 2. does that structure transfer to real natural-language multi-hop
 3. does it continue to matter on causal reasoning tasks
 
@@ -237,7 +237,7 @@ Why it is evidence-grounded:
 
 Why it survived:
 
-- this is the cleanest intersection of BOTCOIN data and current research
+- this is the cleanest intersection of structured-trace data and current research
 - DACR traces already contain explicit step structure
 - `SIM-CoT` provides the strongest current mechanism for stabilizing implicit reasoning with step-level targets
 
@@ -285,7 +285,7 @@ Why it stays in first wave:
 Why this is grounded:
 
 - Pass 2 correctly recognized this as the main alternative to “install step structure”
-- the repaired dataset audit makes clear that BOTCOIN raw attempts contain exactly the positive/negative contrasts needed for a real test
+- the repaired dataset audit makes clear that raw attempts contain exactly the positive/negative contrasts needed for a real test
 
 ### Strategy 5: Boundary-token format A/B
 
@@ -297,7 +297,7 @@ Why it survived:
 
 Why it stays in first wave:
 
-- it is a cheap decision with large downstream implications for future BOTCOIN data generation
+- it is a cheap decision with large downstream implications for future data generation
 
 Why this is grounded:
 
@@ -354,6 +354,6 @@ The first wave is not proving “latent reasoning works.”
 
 It is proving, or disproving, a narrower and more decision-useful claim:
 
-`BOTCOIN-style structured multi-hop traces can measurably shift recurrent hidden-state geometry and then transfer that signal to real natural-language multi-hop reasoning, and ideally to causal reasoning, under a tightly constrained compute budget.`
+`Structured multi-hop traces can measurably shift recurrent hidden-state geometry and then transfer that signal to real natural-language multi-hop reasoning, and ideally to causal reasoning, under a tightly constrained compute budget.`
 
 That framing is the reason the strategy matrix exists in its current form.

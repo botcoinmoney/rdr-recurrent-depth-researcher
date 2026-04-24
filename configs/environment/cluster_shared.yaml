@@ -1,0 +1,18 @@
+environment:
+  profile: cluster_shared
+  python_min: "3.11"
+  required_env:
+    - HF_HOME
+    - TRANSFORMERS_CACHE
+  recommended_env:
+    HF_HOME: $HOME/.cache/huggingface
+    TRANSFORMERS_CACHE: $HOME/.cache/huggingface
+    HUGGINGFACE_HUB_CACHE: $HOME/.cache/huggingface
+  install:
+    torch_profile: cu126
+    venv_path: $HOME/venvs/rdharness
+    include_dev: true
+  protected_defaults:
+    keep_one_gpu_available_for_eval_or_output_gate: true
+    forbid_adapter_merge: true
+    require_frequent_pushes: true

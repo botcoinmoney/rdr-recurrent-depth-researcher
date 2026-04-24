@@ -53,11 +53,11 @@ Treat `±2` points on a small smoke set as acceptable drift. Larger drift means 
 
 ## Transfer Gates
 
-The experiment is not a transfer success unless the signal can move beyond BOTCOIN structure.
+The experiment is not a transfer success unless the signal can move beyond scenario-specific internal structure.
 
 Pass only if the run records a clear outcome for each rung that the strategy targets:
 
-1. BOTCOIN structural fidelity
+1. scenario structural fidelity
 2. natural-language multi-hop transfer
 3. causal reasoning transfer
 
@@ -68,7 +68,7 @@ At minimum, the run should include:
 - DROP
 - one causal suite when available, such as CausalQA or COPA
 
-If a strategy improves only the BOTCOIN rung and leaves multi-hop transfer flat, treat that as an internal-structure result, not a first-wave win.
+If a strategy improves only the scenario-structure rung and leaves multi-hop transfer flat, treat that as an internal-structure result, not a first-wave win.
 
 ## Probe Validity Gates
 
@@ -224,5 +224,5 @@ The final summary for each strategy should have:
 
 Also note:
 
-- whether the result moved BOTCOIN structure only, multi-hop transfer, causal transfer, or both
+- whether the result moved scenario structure only, multi-hop transfer, causal transfer, or both
 - whether the causal rung was measured or intentionally deferred

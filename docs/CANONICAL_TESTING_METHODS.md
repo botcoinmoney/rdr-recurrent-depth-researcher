@@ -51,13 +51,13 @@ The first wave is not trying to prove that latent reasoning is solved.
 
 It is trying to answer:
 
-`Which training/data strategy shows the strongest credible signal that BOTCOIN-style multi-hop traces can shape recurrent hidden-state geometry for natural-language multi-hop reasoning and causal reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours?`
+`Which training/data strategy shows the strongest credible signal that structured recurrent-depth supervision can shape recurrent hidden-state geometry for natural-language multi-hop reasoning and causal reasoning under an 8xH100 first-wave budget, while keeping wallclock near 16 hours?`
 
 ## Transfer Ladder
 
 The first wave is only useful if it clears the ladder in order:
 
-1. BOTCOIN structural fidelity
+1. scenario structural fidelity
 2. real natural-language multi-hop transfer
 3. causal reasoning transfer
 
@@ -70,7 +70,7 @@ Rule:
 These are the five methods that survived the weighing process because they are the best combination of:
 
 - evidence strength
-- fit to BOTCOIN/DACR data
+- fit to structured-trace and natural-language reasoning data
 - fit to a recurrent-depth base model
 - cost under `8xH100` with a short wallclock target
 - interpretability of outcomes
@@ -378,7 +378,7 @@ Best combined logic from the two passes:
 Grounding:
 
 - `SIM-CoT` is the strongest current evidence that step-level supervision stabilizes implicit/latent reasoning.
-- prior BOTCOIN findings already showed the collapse mode this strategy is meant to prevent
+- prior findings already showed the collapse mode this strategy is meant to prevent
 
 ### Exact Method
 
@@ -448,7 +448,7 @@ Reason:
 
 ### Interpretation
 
-- positive: BOTCOIN traces are useful as latent step teachers
+- positive: structured traces are useful as latent step teachers
 - probe-only movement: structure shift without confirmed downstream benefit yet
 - no movement: SIM-CoT-like transfer did not materialize at this scale
 
@@ -530,7 +530,7 @@ Best combined logic from the two passes:
 Grounding:
 
 - trajectory-level latent credit assignment work shows latent correctness signal may already exist
-- BOTCOIN raw attempts provide unusually good positive/negative same-task contrasts
+- raw attempts provide unusually good positive/negative same-task contrasts
 
 ### Exact Method
 
@@ -564,7 +564,7 @@ Phase C:
 
 ### Interpretation
 
-- positive: base latent signal existed and BOTCOIN training sharpened it
+- positive: base latent signal existed and structured supervision sharpened it
 - AUC collapse: classifier got gamed
 - stable AUC with no behavioral lift: signal did not amplify usefully
 
@@ -584,7 +584,7 @@ Best combined logic from the two passes:
 Grounding:
 
 - step alignment logic from `SIM-CoT`
-- prior BOTCOIN collapse on structural-token patterns makes format changes high-risk and high-value
+- prior collapse on structural-token patterns makes format changes high-risk and high-value
 
 ### Exact Method
 
@@ -631,7 +631,7 @@ Reason:
 
 ### Interpretation
 
-- positive: future BOTCOIN data generation should include boundaries
+- positive: future structured data generation should include boundaries
 - near-zero delta: current format is sufficient at this scale
 - negative delta: boundaries likely increase harmful format overfitting
 
@@ -646,7 +646,7 @@ Every valid strategy result should include:
 - post-train output gate result
 - benchmark outputs with parseable rate
 - probe outputs where applicable
-- a note on whether the result moved BOTCOIN structural fidelity, real multi-hop transfer, causal transfer, or none
+- a note on whether the result moved scenario structural fidelity, real multi-hop transfer, causal transfer, or none
 - findings entry with decision and rationale
 
 Do not keep any checkpoint in the comparison set if:
@@ -696,9 +696,9 @@ Use this exact logic:
 - if Strategy 2 wins: scale hop-aligned latent supervision first
 - if Strategy 3 wins: scale recurrence-aware training and curriculum first
 - if Strategy 4 wins: prioritize latent-signal amplification and reranking
-- if Strategy 5 wins: change BOTCOIN data generation format before larger training
+- if Strategy 5 wins: change the structured data generation format before larger training
 - if Strategy 1 shows no useful structure and the others fail: stop and revisit data/measurement before larger compute
-- if a strategy improves BOTCOIN-only structure but not multi-hop transfer, do not count it as a scale-up win yet
+- if a strategy improves scenario-only structure but not multi-hop transfer, do not count it as a scale-up win yet
 
 ## Resource-Use Rule
 

@@ -3,14 +3,18 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "botcoin-latent-reasoning-orchestrator"
-version = "0.1.0"
-description = "Standalone orchestration package for BOTCOIN recurrent-depth transformer signal hunts."
+name = "recurrent-depth-autoresearch-harness"
+version = "0.2.0"
+description = "Standalone recurrent-depth autoresearch harness for continuously iterating on training, data, and evaluation ideas."
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
   "PyYAML>=6.0",
+  "requests>=2.32.0",
 ]
+
+[project.scripts]
+rdh = "rdharness.cli:main"
 
 [project.optional-dependencies]
 dev = [
@@ -21,5 +25,7 @@ dev = [
 testpaths = ["tests"]
 
 [tool.setuptools]
-packages = []
+package-dir = {"" = "src"}
 
+[tool.setuptools.packages.find]
+where = ["src"]

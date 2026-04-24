@@ -1,0 +1,10 @@
+sources: []
+# Add entries like:
+# - kind: local_dataset
+#   name: dacr-train
+#   path: ./datasets/dacr_train.jsonl
+#   notes: Training split for the current run.
+# - kind: remote_repo
+#   name: openmythos
+#   url: https://github.com/kyegomez/OpenMythos
+#   notes: Reference repo to mine for recurrent-depth knobs.
