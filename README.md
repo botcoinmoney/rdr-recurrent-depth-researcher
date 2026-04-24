@@ -21,6 +21,16 @@ The harness handles the recurring work:
 
 The human should mostly do setup, occasional heartbeat checks, and strategic intervention when a new direction is clearly warranted.
 
+## Full Simulation
+
+If you want to sanity-check the whole orchestration path locally before running on real hardware:
+
+```bash
+bash scripts/simulate_full_loop.sh
+```
+
+That script creates a temporary local-only live run repo, initializes a standalone workspace, injects tiny train/eval/probe scripts, runs repeated cycles, and verifies that findings, handoff, reports, and git commits all advance without human intervention.
+
 ## Fastest Start
 
 ```bash
@@ -247,6 +257,7 @@ See:
 - [docs/OPENMYTHOS_DEEP_DIVE.md](/root/recurrent-depth-autoresearch-harness/docs/OPENMYTHOS_DEEP_DIVE.md)
 - [docs/COMMAND_CONTRACTS.md](/root/recurrent-depth-autoresearch-harness/docs/COMMAND_CONTRACTS.md)
 - [docs/RUNTIME_SETUP.md](/root/recurrent-depth-autoresearch-harness/docs/RUNTIME_SETUP.md)
+- [docs/E2E_SIMULATION.md](/root/recurrent-depth-autoresearch-harness/docs/E2E_SIMULATION.md)
 
 ## Workspace Files That Matter
 

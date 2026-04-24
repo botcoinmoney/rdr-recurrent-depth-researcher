@@ -39,3 +39,13 @@ python3 scripts/setup_env.py --profile cluster_shared
 ## Why This Exists
 
 The repo needs a lightweight setup path that still behaves predictably across machines. The environment profiles and install matrix keep the surface area small while avoiding one-size-fits-all PyTorch pinning in `pyproject.toml`.
+
+## Full Structural Simulation
+
+If you want to verify the end-to-end orchestration flow locally before using real hardware:
+
+```bash
+bash scripts/simulate_full_loop.sh
+```
+
+That simulation exercises handoff creation, workspace setup, repeated cycles, report generation, and automatic git progression.

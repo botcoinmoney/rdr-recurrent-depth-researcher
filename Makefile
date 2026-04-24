@@ -4,7 +4,7 @@ GPU_COUNT ?=
 GPU_RESERVE ?= 1
 CHECKPOINT_MESSAGE ?= Checkpoint: $(shell date -u +%Y-%m-%dT%H:%MZ)
 
-.PHONY: setup setup-auto setup-single setup-multi setup-cluster validate test preflight kickoff gpu-status gpu-allocate checkpoint demo-workspace
+.PHONY: setup setup-auto setup-single setup-multi setup-cluster validate test preflight kickoff gpu-status gpu-allocate checkpoint demo-workspace simulate-e2e
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -48,3 +48,6 @@ checkpoint:
 demo-workspace:
 	rdh init-workspace --workspace ./demo-workspace --force
 	rdh run-cycle --workspace ./demo-workspace
+
+simulate-e2e:
+	bash scripts/simulate_full_loop.sh
