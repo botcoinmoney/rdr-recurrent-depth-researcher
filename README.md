@@ -156,9 +156,7 @@ python3 scripts/cluster_contract_check.py --launcher torchrun
 python3 scripts/cluster_contract_check.py --launcher accelerate
 ```
 
-## What Makes This A Real Harness
-
-This is not a toy planner and it no longer ships with a mock runner.
+## How The Stack Works
 
 The built-in execution path is a real multi-stage orchestration layer around the actual model stack:
 
@@ -291,6 +289,16 @@ Several design choices in this harness were shaped by recurrent-depth and latent
 - `OpenMythos`: https://github.com/kyegomez/OpenMythos
 
 Those influences show up here as concrete harness features rather than as hardcoded beliefs: depth sweeps, scramble controls, evidence ablations, structural data recipes, dynamic recurrent knob families, and control-aware ranking.
+
+## Early Recipe Signals
+
+Some of the strongest setup-level signals from the earlier recurrent-depth experiments were simple recipe choices rather than new architecture:
+
+- **Stop earlier, not later.** For the `S2`-style `alpha=0.05, R_aux=4` recipe, performance was materially better around step `60` than step `120`. Longer training degraded both behavior and coherence.
+- **Keep auxiliary depth pressure shallow.** In the `Strategy-2` family, `alpha=0.1, R_aux=4` preserved behavior much better than nearby harsher settings. Higher `R_aux` values increased damage to transfer metrics even when some latent structure looked stronger.
+- **Treat `alpha` as a depth-shaping knob.** The latent-signal peak moved with `alpha`: baseline peaked around `R=8`, `alpha=0.1` shifted the peak toward `R=4`, `alpha=0.3` pushed it toward `R=16`, and `alpha=1.0` flattened the curve.
+
+These are not universal laws, but they are good defaults to test early: conservative stopping, modest auxiliary pressure, and explicit measurement of how the latent peak shifts across recurrence depth.
 
 ## Workspace Files That Matter
 
