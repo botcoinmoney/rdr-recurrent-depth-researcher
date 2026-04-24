@@ -178,3 +178,5 @@ Proceed only if:
 - rules file exists
 
 Before the main run begins, also pass `docs/GPU_OPTIMIZATION_CHECKLIST.md`.
+
+For multi-node or shared-cluster launch details, also read [docs/CLUSTER_READINESS.md](/root/recurrent-depth-autoresearch-harness/docs/CLUSTER_READINESS.md).

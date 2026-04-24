@@ -138,6 +138,24 @@ The intent is simple:
 - pin core versions where environment drift hurts reproducibility
 - let PyTorch vary by machine profile instead of pretending one wheel fits every system
 
+## Cluster Launch Readiness
+
+For shared clusters and multi-node jobs, the repo now includes a concrete Slurm launch contract for both `torchrun` and `accelerate`.
+
+Key surfaces:
+
+- [docs/CLUSTER_READINESS.md](/root/recurrent-depth-autoresearch-harness/docs/CLUSTER_READINESS.md)
+- [scripts/cluster_contract_check.py](/root/recurrent-depth-autoresearch-harness/scripts/cluster_contract_check.py)
+- [templates/slurm/torchrun.sbatch](/root/recurrent-depth-autoresearch-harness/templates/slurm/torchrun.sbatch)
+- [templates/slurm/accelerate.sbatch](/root/recurrent-depth-autoresearch-harness/templates/slurm/accelerate.sbatch)
+
+Quick check:
+
+```bash
+python3 scripts/cluster_contract_check.py --launcher torchrun
+python3 scripts/cluster_contract_check.py --launcher accelerate
+```
+
 ## What Makes This A Real Harness
 
 This is not a toy planner and it no longer ships with a mock runner.

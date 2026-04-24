@@ -49,3 +49,14 @@ bash scripts/simulate_full_loop.sh
 ```
 
 That simulation exercises handoff creation, workspace setup, repeated cycles, report generation, and automatic git progression.
+
+## Shared Cluster Readiness
+
+For Slurm or other shared multi-node environments, follow [docs/CLUSTER_READINESS.md](/root/recurrent-depth-autoresearch-harness/docs/CLUSTER_READINESS.md).
+
+Quick contract check:
+
+```bash
+python3 scripts/cluster_contract_check.py --launcher torchrun
+python3 scripts/cluster_contract_check.py --launcher accelerate
+```

@@ -4,7 +4,7 @@ GPU_COUNT ?=
 GPU_RESERVE ?= 1
 CHECKPOINT_MESSAGE ?= Checkpoint: $(shell date -u +%Y-%m-%dT%H:%MZ)
 
-.PHONY: setup setup-auto setup-single setup-multi setup-cluster validate test preflight kickoff gpu-status gpu-allocate checkpoint demo-workspace simulate-e2e
+.PHONY: setup setup-auto setup-single setup-multi setup-cluster validate test preflight kickoff gpu-status gpu-allocate checkpoint demo-workspace simulate-e2e cluster-check
 
 setup:
 	$(PYTHON) -m venv .venv
@@ -51,3 +51,6 @@ demo-workspace:
 
 simulate-e2e:
 	bash scripts/simulate_full_loop.sh
+
+cluster-check:
+	$(PYTHON) scripts/cluster_contract_check.py --launcher torchrun
